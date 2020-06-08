@@ -180,3 +180,14 @@ class Queue:
             self.storage.head = self.storage.head.next_node
             self.size -= 1
             return retval
+
+"""3. What is the difference between using an array vs. a linked list when 
+   implementing a Queue?
+   
+   
+Using a linked list requires definition of a LL class (and probably a Node class.)
+
+Also, at a lower level, for an array, the array itself will probably need to be resized,
+and (although automatic) this requires copying an entire array, rather than simply finding 
+space for a new node.
+   """
