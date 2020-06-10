@@ -135,8 +135,6 @@ class DoublyLinkedList:
     List and inserts it as the new head node of the List."""
     def move_to_front(self, node):
 
-    def move_to_front(self, node):
-
         if self.head == node:
             return True
 
@@ -163,21 +161,20 @@ class DoublyLinkedList:
     List and inserts it as the new tail node of the List."""
     def move_to_end(self, node):
 
-        if self.length == 1:
+        if self.tail == node:
             return True
 
-        elif self.tail == node:
-            return True
+        elif self.head == node:
+            self.head = node.next
 
         else:
-            node.next.prev = node.prev
-            if self.head == node:
-                self.head = node.next
-            else:
-                node.prev.next = node.next
-
-            self.length -= 1
-            self.add_to_tail(node.value)
+            node.prev.next = node.next
+        
+        node.next.prev = node.prev
+        node.next = None
+        node.prev = self.tail
+        self.head.next = node
+        self.tail = node
 
 
 
@@ -211,7 +208,7 @@ class DoublyLinkedList:
             return None
 
         else:
-            cursor = head
+            cursor = self.head
             retval = cursor.value
 
             while cursor.next is not None:
