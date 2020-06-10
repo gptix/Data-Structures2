@@ -127,10 +127,6 @@ class DoublyLinkedList:
             return retval
 
 
-
-
-
-
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
     def move_to_front(self, node):
@@ -138,22 +134,12 @@ class DoublyLinkedList:
         if self.head == node:
             return True
 
-        elif self.tail == node:
-            self.tail = node.prev
-#             node.prev = None
-#             node.prev.next = node.next
-#             node.next = self.head
-#             self.head.prev = node
-#             self.head = node
+        val = node.value
+        self.delete(node)
+        self.add_to_head(val)
+        return True
 
-        else:
-            node.next.prev = node.prev
-        
-        node.prev.next = node.next
-        node.prev = None
-        node.next = self.head
-        self.head.prev = node
-        self.head = node
+
 
 
 
@@ -164,39 +150,23 @@ class DoublyLinkedList:
         if self.tail == node:
             return True
 
-        elif self.head == node:
-            self.head = node.next
-
-        else:
-            node.prev.next = node.next
-        
-        node.next.prev = node.prev
-        node.next = None
-        node.prev = self.tail
-        self.head.next = node
-        self.tail = node
+        val = node.value
+        self.delete(node)
+        self.add_to_tail(val)
+        return True
 
 
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
     def delete(self, node):
-        print("self.length: " + str(self.length) )
-        if self.length == 1:
-            self.head = None
-            self.tail = None
+        # print("self.length: " + str(self.length) )
 
-        elif self.head == node:
+        if self.head == node:
             self.head = self.head.next
-            self.head.prev = None
-
-        elif self.tail == node:
+        if self.tail == node:
             self.tail = self.tail.prev
-            self.tail.next = None
-
-        else:
-            node.prev.next = node.next
-            node.next.prev = node.prev
+        node.delete()
 
         self.length -= 1
 
@@ -215,6 +185,6 @@ class DoublyLinkedList:
                 cursor = cursor.next
                 retval = max(retval, cursor.value)
 
-        retval = max(retval, cursor.next.value)
+        return retval
 
             
